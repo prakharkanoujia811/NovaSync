@@ -1,0 +1,58 @@
+:root {
+  --nova-bg: #05050a;
+  --nova-card: rgba(255, 255, 255, 0.05);
+  --nova-border: rgba(255, 255, 255, 0.1);
+  --nova-primary: rgb(110, 157, 223);
+  --nova-secondary: rgb(38, 40, 169);
+  --nova-text-main: #f8fafc;
+  --nova-text-muted: #94a3b8;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+body{
+  height: 100%;
+  background-color: var(--nova-bg);
+  background-image: 
+    radial-gradient(circle at 40% 10%, rgba(54, 39, 141, 0.5) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(82, 37, 110, 0.4) 0%, transparent 50%);
+  
+  background-attachment: fixed;
+  min-height: 100vh;
+  margin: 0;
+  color: var(--nova-text-main);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 1;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding-top: 80px !important;
+}
+
+@media (max-width: 768px) {
+  #root {
+    padding-top: 80px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+}

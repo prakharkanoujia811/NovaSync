@@ -1,0 +1,39 @@
+.dashboard-container {
+  max-width: 800px;
+  margin: auto;
+}
+
+.dashboard-container h2 {
+  margin-bottom: 8px;
+}
+
+.group-list {
+  margin-top: 20px;
+  display: grid;
+  gap: 15px;
+}
+
+.group-card {
+  padding: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  text-decoration: none;
+  color: black;
+  transition: 0.2s ease;
+  background: #fafafa;
+}
+
+.group-card:hover {
+  background: #f0f0ff;
+  border-color: #4f46e5;
+}
+
+.create-group-btn {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 10px 20px;
+  background: #4f46e5;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+}
