@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import useGroups from '../hooks/useGroups';
+import { SquareArrowOutUpRight, X } from 'lucide-react';
 import '../styles/ExpensePage.css';
 import API from '../services/api.js';
 
@@ -9,6 +10,7 @@ const AddExpense = () => {
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [submittedExpenses, setSubmittedExpenses] = useState([]);
   const [settlementInstructions, setSettlementInstructions] = useState([]);
+  const [expenseBalance, setExpenseBalance] = useState(null);
 
   const [expenseData, setExpenseData] = useState({
     description: '',
@@ -18,6 +20,40 @@ const AddExpense = () => {
     percentages: {},
     values: {}
   });
+
+  const handleBalances = (exp) => {
+    const totalAmount = exp.amount;
+    const payer = exp.paidBy;
+
+    const contributions = selectedGroup.members.map(memberId => {
+      let share = 0;
+      const splitDetails = exp.splitDetails || {};
+
+      if (exp.splitType === 'equal') {
+        share = totalAmount / selectedGroup.members.length;
+      }
+      else if (exp.splitType === 'percentage') {
+        const percent = splitDetails[memberId] || 0;
+        share = (totalAmount * (percent / 100));
+      }
+      else if (exp.splitType === 'value') {
+        share = splitDetails[memberId] || 0;
+      }
+
+      return {
+        name: memberId,
+        share: share,
+        isPayer: memberId === payer
+      };
+    });
+
+    setExpenseBalance({
+      description: exp.description,
+      amount: totalAmount,
+      breakdown: contributions
+    });
+  };
+
 
   const fetchExpenses = async (groupId) => {
     try {
@@ -148,6 +184,33 @@ const AddExpense = () => {
               </div>
             )}
           </div>
+
+          {expenseBalance && (
+            <div className="modal-overlay">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h3>{expenseBalance.description} Breakdown</h3>
+                  <X onClick={() => setExpenseBalance(null)} className="close-icon" />
+                </div>
+                <div className="total-badge">Total: ₹{parseFloat(expenseBalance.amount).toFixed(2)}</div>
+
+                <ul className="contribution-list">
+                  {expenseBalance.breakdown.map((item, index) => (
+                    <li key={index} className="contribution-item">
+                      <span className="member-name">
+                        {item.name} {item.isPayer && <strong className="payer-tag">Payer</strong>}
+                      </span>
+                      <span className={`amount ${item.isPayer ? 'text-red' : 'text-green'}`}>
+                        {item.isPayer
+                          ? `-₹${(expenseBalance.amount - item.share).toFixed(2)}`
+                          : `+₹${item.share.toFixed(2)}`}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
 
           {!selectedGroup ? (
             <div className='empty'>
@@ -282,7 +345,7 @@ const AddExpense = () => {
                       </div>
                       <div className="summary-details">
                         <span>Paid by {exp.paidBy}</span>
-                        <span className="split-tag">{exp.splitType}</span>
+                        <span className="split-tag"><div className='view' onClick={() => handleBalances(exp)}><SquareArrowOutUpRight size={14} /></div>{exp.splitType}</span>
                       </div>
                     </div>
                   ))

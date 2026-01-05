@@ -315,6 +315,8 @@ input::-webkit-inner-spin-button {
   text-transform: uppercase;
   letter-spacing: 1px;
   opacity: 0.7;
+  display: flex;
+  gap: 5px;
 }
 
 .summary-footer {
@@ -392,6 +394,117 @@ input::-webkit-inner-spin-button {
   color: #888;
   width: 96vw;
   height:50vh;
+}
+
+.view{
+  margin-top: 2px;
+}
+
+.view:hover{
+  color: var(--nova-primary);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+  background: var(--nova-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--nova-border);
+  padding: 2.5rem;
+  border-radius: 16px;
+  width: 450px;
+  max-width: 90%;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--nova-border);
+  padding-bottom: 12px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--text-main);
+}
+
+.close-icon {
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+
+.close-icon:hover {
+  color: #dc3545;
+}
+
+.total-badge {
+  background: rgba(135, 177, 239, 0.1);
+  border: 1px solid rgba(135, 177, 239, 0.3);
+  color: #87b1ef;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.contribution-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contribution-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  border: 1px solid transparent;
+}
+
+.member-name {
+  color: var(--text-main);
+  font-size: 0.95rem;
+}
+
+.payer-tag {
+  background: var(--nova-primary);
+  font-size: 0.65rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 8px;
+  text-transform: uppercase;
+}
+
+.text-green {
+  color: #10b981;
+  font-weight: 700;
+}
+
+.text-red {
+  color: #ef4444;
+  font-weight: 700;
 }
 
 @keyframes fadeIn {
