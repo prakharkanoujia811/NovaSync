@@ -200,10 +200,10 @@ const AddExpense = () => {
                       <span className="member-name">
                         {item.name} {item.isPayer && <strong className="payer-tag">Payer</strong>}
                       </span>
-                      <span className={`amount ${item.isPayer ? 'text-red' : 'text-green'}`}>
+                      <span className={`amount ${item.isPayer ? 'text-green' : 'text-red'}`}>
                         {item.isPayer
-                          ? `-₹${(expenseBalance.amount - item.share).toFixed(2)}`
-                          : `+₹${item.share.toFixed(2)}`}
+                          ? `+₹${(expenseBalance.amount - item.share).toFixed(2)}`
+                          : `-₹${item.share.toFixed(2)}`}
                       </span>
                     </li>
                   ))}
